@@ -19,6 +19,7 @@
       $last_update = $_COOKIE["cookie_last_update_date"];
    }
 
+
    if($_SERVER["REQUEST_METHOD"] === "POST"){
          
     if(!empty($_POST["f_name"])){
@@ -40,7 +41,7 @@
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
-        if(isset($_GET["action"]) && $_GET["action"] == "rest"){
+        if(isset($_GET["action"]) && $_GET["action"] == "reset"){
             $name="Guest";
             $bg_color = "#FFFFFF";
             $lang = "en";
@@ -53,13 +54,15 @@
         
     }
 
-// prepare display strings and selections
-$titleText = ($lang === 'en' ? 'Welcome, ' : 'Bienvenue, ') . htmlspecialchars($name);
-if($last_update !== ''){
-    $updateText = ($lang === 'en' ? 'Last update: ' : 'Dernière mise à jour : ') . $last_update;
-} else {
-    $updateText = ($lang === 'en' ? 'No previous visit recorded' : 'Aucune visite précédente enregistrée');
-}
+
+    $titleText = ($lang === 'en' ? 'Welcome, ' : 'Bienvenue, ') . htmlspecialchars($name);
+    if($last_update !== ''){
+        $updateText = ($lang === 'en' ? 'Last update: ' : 'Dernière mise à jour : ') . $last_update;
+    } else {
+        $updateText = ($lang === 'en' ? 'No previous visit recorded' : 'Aucune visite précédente enregistrée');
+    }
+
+
 $saveButton = ($lang === 'en' ? 'Save choices' : 'Enregistrer mes choix');
 $resetLink = ($lang === 'en' ? 'Reset All' : 'Réinitialiser tout');
 $selectedEn = $lang === 'en' ? 'selected' : '';
@@ -91,7 +94,7 @@ echo <<<HTML
             <input type="color" name="bg_color" id="bg_color" value="{$bg_color}">
             <br>
             <br>
-             <label for="">Langue</label>
+            <label for="">Langue</label>
             <select name="choose">
                 <option value="en" {$selectedEn}>English</option>
                 <option value="fr" {$selectedFr}>Francais</option>
@@ -102,7 +105,7 @@ echo <<<HTML
            <br><br>
           <hr>
           </form>
-          <a href="index.php?action=rest">{$resetLink}</a>
+          <a href="index.php?action=reset">{$resetLink}</a>
      </div>
 </body>
 </html>
